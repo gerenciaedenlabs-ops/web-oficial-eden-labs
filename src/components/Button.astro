@@ -1,0 +1,44 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'inverted' | 'outlined';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  variant = 'primary',
+  href,
+  type = 'button',
+  class: extraClass = '',
+  size = 'md',
+} = Astro.props;
+
+const base = 'inline-flex items-center justify-center gap-2 font-medium rounded-[10px] transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer select-none';
+
+const sizes = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-6 py-3 text-base',
+  lg: 'px-8 py-4 text-lg',
+};
+
+const variants = {
+  primary:  'bg-[var(--color-primary-600)] text-white hover:bg-[var(--color-primary-700)] active:bg-[var(--color-primary-800)] shadow-md hover:shadow-lg focus-visible:outline-[var(--color-primary-600)]',
+  secondary:'bg-white text-[var(--color-secondary-900)] border border-[var(--color-neutral-300)] hover:border-[var(--color-primary-400)] hover:text-[var(--color-primary-600)] focus-visible:outline-[var(--color-primary-600)]',
+  inverted: 'bg-[var(--color-secondary-900)] text-white hover:bg-[var(--color-secondary-800)] focus-visible:outline-[var(--color-secondary-600)]',
+  outlined: 'bg-transparent text-[var(--color-primary-600)] border-2 border-[var(--color-primary-600)] hover:bg-[var(--color-primary-600)] hover:text-white focus-visible:outline-[var(--color-primary-600)]',
+};
+
+const classes = `${base} ${sizes[size]} ${variants[variant]} ${extraClass}`;
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes}>
+    <slot />
+  </button>
+)}

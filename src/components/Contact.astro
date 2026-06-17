@@ -1,0 +1,197 @@
+---
+---
+
+<section id="contacto" class="py-24 md:py-32" style="background: var(--color-primary-900);">
+  <div class="section-container">
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+      <!-- Left: context -->
+      <div class="lg:col-span-5 reveal">
+        <div class="label-uppercase mb-6" style="color: var(--color-tertiary);">Contacto</div>
+        <h2 class="text-4xl md:text-5xl mb-6" style="font-family: var(--font-display); color: white; letter-spacing: -0.02em;">
+          Cuéntanos tu proyecto. La primera llamada es gratis.
+        </h2>
+        <p class="text-lg mb-10" style="color: var(--color-primary-200);">
+          Cuéntanos qué estás construyendo o qué problema necesitas resolver. Responderemos dentro de un día hábil con un criterio honesto —no con un pitch.
+        </p>
+
+        <ul class="space-y-4" role="list">
+          {[
+            { icon: `<path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`, text: 'hola@edenlabs.dev' },
+            { icon: `<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="currentColor" stroke-width="1.5"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="1.5"/>`, text: 'Ciudad de México · Houston, TX' },
+            { icon: `<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`, text: 'Respuesta en < 24 hrs hábiles' },
+          ].map((item) => (
+            <li class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(255,255,255,0.08);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={item.icon}/>
+              </div>
+              <span class="text-base" style="color: var(--color-primary-200);">{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Right: form -->
+      <div class="lg:col-span-7 reveal reveal-delay-2">
+        <form
+          id="contact-form"
+          class="rounded-2xl p-8 md:p-10"
+          style="background: var(--color-surface); box-shadow: var(--shadow-lg);"
+          novalidate
+        >
+          <div class="grid sm:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label for="name" class="block text-sm font-medium mb-2" style="color: var(--color-secondary-700);">
+                Nombre completo
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Tu nombre"
+                class="w-full px-4 py-3 rounded-xl text-base transition-all duration-150 outline-none"
+                style="
+                  background: var(--color-bg);
+                  border: 1.5px solid var(--color-neutral-300);
+                  color: var(--color-secondary-900);
+                "
+              />
+            </div>
+            <div>
+              <label for="company" class="block text-sm font-medium mb-2" style="color: var(--color-secondary-700);">
+                Empresa
+              </label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                autocomplete="organization"
+                placeholder="Nombre de tu empresa"
+                class="w-full px-4 py-3 rounded-xl text-base transition-all duration-150 outline-none"
+                style="
+                  background: var(--color-bg);
+                  border: 1.5px solid var(--color-neutral-300);
+                  color: var(--color-secondary-900);
+                "
+              />
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <label for="email" class="block text-sm font-medium mb-2" style="color: var(--color-secondary-700);">
+              Correo electrónico <span aria-hidden="true" style="color: var(--color-danger);">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="tu@empresa.com"
+              class="w-full px-4 py-3 rounded-xl text-base transition-all duration-150 outline-none"
+              style="
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-neutral-300);
+                color: var(--color-secondary-900);
+              "
+            />
+          </div>
+
+          <div class="mb-5">
+            <label for="type" class="block text-sm font-medium mb-2" style="color: var(--color-secondary-700);">
+              Tipo de proyecto
+            </label>
+            <select
+              id="type"
+              name="type"
+              class="w-full px-4 py-3 rounded-xl text-base transition-all duration-150 outline-none appearance-none"
+              style="
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-neutral-300);
+                color: var(--color-secondary-900);
+              "
+            >
+              <option value="">Selecciona una opción</option>
+              <option value="custom">Software a medida</option>
+              <option value="saas">Plataforma SaaS</option>
+              <option value="erp">ERP e integraciones</option>
+              <option value="modernization">Modernización de sistema</option>
+              <option value="other">Otro / No sé todavía</option>
+            </select>
+          </div>
+
+          <div class="mb-8">
+            <label for="message" class="block text-sm font-medium mb-2" style="color: var(--color-secondary-700);">
+              Cuéntanos tu proyecto <span aria-hidden="true" style="color: var(--color-danger);">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="4"
+              placeholder="¿Qué problema necesitas resolver? ¿En qué etapa estás?"
+              class="w-full px-4 py-3 rounded-xl text-base transition-all duration-150 outline-none resize-none"
+              style="
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-neutral-300);
+                color: var(--color-secondary-900);
+              "
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-4 rounded-xl text-base font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.99]"
+            style="background: var(--color-primary-600);"
+          >
+            Enviar mensaje →
+          </button>
+
+          <p id="form-status" class="mt-4 text-sm text-center hidden" role="alert" aria-live="polite"></p>
+
+          <p class="text-xs text-center mt-4" style="color: var(--color-neutral-500);">
+            Sin spam. Respondemos directamente con un criterio técnico.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status')!;
+  const inputs = form.querySelectorAll('input, textarea, select');
+
+  // Focus ring using brand color
+  inputs.forEach((el) => {
+    el.addEventListener('focus', () => {
+      (el as HTMLElement).style.borderColor = 'var(--color-primary-600)';
+      (el as HTMLElement).style.boxShadow = '0 0 0 3px rgba(26,60,52,0.12)';
+    });
+    el.addEventListener('blur', () => {
+      (el as HTMLElement).style.borderColor = 'var(--color-neutral-300)';
+      (el as HTMLElement).style.boxShadow = '';
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    // Simulate send (replace with real endpoint)
+    await new Promise((r) => setTimeout(r, 1200));
+
+    status.textContent = '¡Mensaje enviado! Te contactaremos dentro de un día hábil.';
+    status.style.color = 'var(--color-tertiary-ink)';
+    status.classList.remove('hidden');
+    form.reset();
+    btn.textContent = 'Mensaje enviado ✓';
+    btn.style.background = 'var(--color-tertiary-ink)';
+  });
+</script>

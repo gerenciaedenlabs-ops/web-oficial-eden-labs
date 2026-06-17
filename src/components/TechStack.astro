@@ -1,0 +1,59 @@
+---
+const categories = [
+  {
+    name: 'Backend',
+    items: ['.NET / C#', 'Node.js', 'Python', 'REST APIs', 'GraphQL', 'gRPC'],
+  },
+  {
+    name: 'Frontend',
+    items: ['React', 'Next.js', 'TypeScript', 'Astro', 'Tailwind CSS', 'React Native'],
+  },
+  {
+    name: 'Base de datos',
+    items: ['SQL Server', 'PostgreSQL', 'MySQL', 'Redis', 'MongoDB', 'Elasticsearch'],
+  },
+  {
+    name: 'Cloud & DevOps',
+    items: ['AWS', 'Azure', 'Docker', 'Kubernetes', 'GitHub Actions', 'Terraform'],
+  },
+];
+---
+
+<section id="stack" class="py-24 md:py-32" style="background: var(--color-surface);">
+  <div class="section-container">
+
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+      <!-- Left text -->
+      <div class="lg:col-span-4 reveal">
+        <div class="label-uppercase mb-4" style="color: var(--color-primary-600);">Stack tecnológico</div>
+        <h2 class="text-4xl md:text-5xl mb-5" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+          Herramientas que ya conoces. Equipo que sabe usarlas.
+        </h2>
+        <p class="text-lg" style="color: var(--color-ink-soft);">
+          No seguimos modas. Elegimos tecnología probada en producción, con soporte y comunidad activa, y la aplicamos donde tiene sentido para tu negocio.
+        </p>
+      </div>
+
+      <!-- Right: tech grid -->
+      <div class="lg:col-span-8 grid sm:grid-cols-2 gap-6">
+        {categories.map((cat, i) => (
+          <div class={`reveal reveal-delay-${i + 1} rounded-2xl p-6`} style="background: var(--color-bg); border: 1px solid var(--color-neutral-200);">
+            <div class="label-uppercase mb-4" style="color: var(--color-secondary-400);">{cat.name}</div>
+            <div class="flex flex-wrap gap-2">
+              {cat.items.map((item) => (
+                <span
+                  class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-150 cursor-default"
+                  style="background: var(--color-surface); color: var(--color-secondary-700); border: 1px solid var(--color-neutral-200);"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,83 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Descubrimiento',
+    description: 'Antes de estimar, entendemos. Estudiamos tu operación, tus restricciones reales y dónde el software puede tener mayor impacto.',
+    duration: '1–2 semanas',
+    icon: `<path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0M12 5v2M12 17v2M5 12H3M21 12h-2M6.34 6.34L4.93 4.93M19.07 19.07l-1.41-1.41M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`,
+  },
+  {
+    number: '02',
+    title: 'Diseño',
+    description: 'Arquitectura técnica y experiencia de usuario alineadas con tu flujo real —no con un patrón genérico copiado de otro proyecto.',
+    duration: '2–4 semanas',
+    icon: `<path d="M12 2l3.5 7h7l-5.6 4.1 2.1 6.9L12 16l-7 4 2.1-6.9L1.5 9h7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>`,
+  },
+  {
+    number: '03',
+    title: 'Construcción',
+    description: 'Desarrollo iterativo con visibilidad total del avance. Ves el progreso cada semana, no esperamos al final para mostrarte algo.',
+    duration: '4–16 semanas',
+    icon: `<path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h3M16 3h3a2 2 0 012 2v14a2 2 0 01-2 2h-3M12 8v8M9 11l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
+  },
+  {
+    number: '04',
+    title: 'Entrega y soporte',
+    description: 'Acompañamiento post-lanzamiento real —no un handoff de documentación. Monitoreamos, ajustamos y seguimos construyendo contigo.',
+    duration: 'Continuo',
+    icon: `<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
+  },
+];
+---
+
+<section id="proceso" class="py-24 md:py-32 overflow-hidden" style="background: var(--color-bg);">
+  <div class="section-container">
+
+    <!-- Header -->
+    <div class="max-w-2xl mb-16 reveal">
+      <div class="label-uppercase mb-4" style="color: var(--color-primary-600);">Proceso</div>
+      <h2 class="text-4xl md:text-5xl mb-5" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+        Cómo trabajamos juntos
+      </h2>
+      <p class="text-lg" style="color: var(--color-ink-soft);">
+        Un proceso probado que elimina sorpresas. Sabes qué sigue, cuánto toma y por qué se tomó cada decisión.
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-0">
+      {steps.map((step, i) => (
+        <div class={`reveal reveal-delay-${i + 1} relative`}>
+          <!-- Connector line (desktop) -->
+          {i < steps.length - 1 && (
+            <div class="hidden lg:block absolute top-10 left-1/2 w-full h-px" style="background: var(--color-neutral-200); z-index: 0;" aria-hidden="true"></div>
+          )}
+
+          <div class="relative z-10 p-6 lg:p-8">
+            <!-- Number badge -->
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: var(--color-primary-600);">
+              <span class="text-sm font-semibold text-white" style="font-family: var(--font-body);">{step.number}</span>
+            </div>
+
+            <h3 class="text-xl mb-3" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+              {step.title}
+            </h3>
+
+            <p class="text-sm mb-4" style="color: var(--color-ink-soft); line-height: 1.65;">
+              {step.description}
+            </p>
+
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium" style="background: var(--color-tertiary); color: var(--color-tertiary-ink);">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M5 3v2l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              {step.duration}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

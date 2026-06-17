@@ -1,0 +1,307 @@
+---
+import Button from './Button.astro';
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex items-center overflow-hidden"
+  style="background: var(--color-primary-600);"
+  aria-label="Introducción"
+>
+  <!-- Full green background grid texture (mobile) -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(255,255,255,0.06) 39px,
+      rgba(255,255,255,0.06) 40px
+    ), repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(255,255,255,0.04) 39px,
+      rgba(255,255,255,0.04) 40px
+    );
+    background-size: 40px 40px;
+  "></div>
+
+  <!-- Right neutral panel — desktop only -->
+  <div
+    class="absolute top-0 right-0 bottom-0 hidden lg:block"
+    aria-hidden="true"
+    style="
+      width: 46%;
+      background: var(--color-bg);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+    "
+  >
+    <!-- Grid texture on neutral side -->
+    <div class="absolute inset-0 opacity-60" style="
+      background-image: linear-gradient(var(--color-neutral-200) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--color-neutral-200) 1px, transparent 1px);
+      background-size: 40px 40px;
+    "></div>
+  </div>
+
+  <!-- Green panel anchor (keeps id for GSAP reference) -->
+  <div id="hero-panel" class="hidden" aria-hidden="true"></div>
+
+  <div class="section-container relative z-10 w-full">
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-0 items-center min-h-screen py-32">
+
+      <!-- Left: headline + CTAs -->
+      <div class="lg:col-span-6 lg:pr-16">
+
+        <div id="hero-eyebrow" class="label-uppercase mb-6" style="color: var(--color-tertiary-strong); opacity: 0; transform: translateY(16px);">
+          Estudio de software — EE. UU. &amp; Latinoamérica
+        </div>
+
+        <h1
+          id="hero-headline"
+          class="text-5xl md:text-6xl xl:text-7xl mb-6"
+          style="font-family: var(--font-display); color: white; letter-spacing: -0.025em; opacity: 0;"
+        >
+          Software que<br/>
+          <em class="not-italic" style="color: var(--color-tertiary);">trabaja tan bien</em><br/>
+          como tu equipo.
+        </h1>
+
+        <p
+          id="hero-body"
+          class="text-lg md:text-xl mb-10 max-w-lg"
+          style="color: var(--color-primary-200); line-height: 1.65; opacity: 0; transform: translateY(16px);"
+        >
+          Diseñamos y construimos sistemas a medida, ERPs y plataformas SaaS para empresas que necesitan más que una plantilla genérica.
+        </p>
+
+        <div id="hero-ctas" class="flex flex-wrap gap-4" style="opacity: 0; transform: translateY(16px);">
+          <Button href="#contacto" variant="outlined" size="lg" class="border-white text-white hover:bg-white hover:text-[var(--color-primary-600)]">
+            Hablemos de tu proyecto
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </Button>
+          <Button href="#proyectos" variant="outlined" size="lg" class="border-[var(--color-primary-400)] text-[var(--color-primary-200)] hover:border-white hover:text-white">
+            Ver casos de éxito
+          </Button>
+        </div>
+
+        <!-- Metric strip -->
+        <div id="hero-metrics" class="flex gap-8 mt-14 pt-10 border-t border-[var(--color-primary-500)]" style="opacity: 0; transform: translateY(16px);">
+          {[
+            { value: '60+', label: 'Proyectos entregados' },
+            { value: '98%', label: 'Retención de clientes' },
+            { value: '7', label: 'Años de experiencia' },
+          ].map((m) => (
+            <div>
+              <div class="text-3xl font-semibold" style="font-family: var(--font-display); color: var(--color-tertiary);">{m.value}</div>
+              <div class="text-sm mt-1" style="color: var(--color-primary-200);">{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Dashboard mockup (the signature) -->
+      <div class="lg:col-span-6 lg:col-start-7 flex items-center justify-center lg:justify-end">
+        <div
+          id="hero-mockup"
+          class="w-full max-w-[520px]"
+          style="opacity: 0; transform: translateY(40px) rotate(-1deg);"
+        >
+          <!-- App window chrome -->
+          <div class="rounded-2xl overflow-hidden" style="
+            background: white;
+            box-shadow: var(--shadow-lg), 0 0 0 1px rgba(26,60,52,0.06);
+          ">
+            <!-- Title bar -->
+            <div class="flex items-center gap-2 px-4 py-3" style="background: var(--color-secondary-900); border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full" style="background: #ff5f57;"></div>
+                <div class="w-3 h-3 rounded-full" style="background: #febc2e;"></div>
+                <div class="w-3 h-3 rounded-full" style="background: #28c840;"></div>
+              </div>
+              <div class="flex-1 mx-4">
+                <div class="mx-auto max-w-40 h-5 rounded-md flex items-center justify-center text-xs" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4);">
+                  eden-erp.app
+                </div>
+              </div>
+            </div>
+
+            <!-- App body -->
+            <div class="flex" style="height: 360px;">
+
+              <!-- Sidebar -->
+              <div class="w-14 flex flex-col items-center py-4 gap-3" style="background: var(--color-secondary-900); border-right: 1px solid rgba(255,255,255,0.06);">
+                {[
+                  { label: 'Dashboard', active: true, icon: 'M3 4h14M3 8h10M3 12h14' },
+                  { label: 'Órdenes', active: false, icon: 'M4 6h12M4 10h8M4 14h10' },
+                  { label: 'Clientes', active: false, icon: 'M8 8a3 3 0 100-6 3 3 0 000 6zM2 20c0-4 2.7-7 6-7s6 3 6 7' },
+                  { label: 'Reportes', active: false, icon: 'M3 3v14h14M7 11l3-3 3 3 4-4' },
+                ].map((item) => (
+                  <div
+                    class="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
+                    style={`background: ${item.active ? 'var(--color-primary-600)' : 'transparent'}; cursor: pointer;`}
+                    title={item.label}
+                    aria-label={item.label}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d={item.icon} stroke={item.active ? 'white' : 'rgba(255,255,255,0.35)'} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                ))}
+              </div>
+
+              <!-- Main dashboard -->
+              <div class="flex-1 overflow-hidden p-4" style="background: var(--color-neutral);">
+
+                <!-- Header row -->
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <div class="text-xs font-medium" style="color: var(--color-secondary-900);">Panel principal</div>
+                    <div class="text-xs mt-0.5" style="color: var(--color-secondary-400);">Junio 2026</div>
+                  </div>
+                  <div class="flex gap-1">
+                    <div class="px-2 py-1 rounded-md text-xs font-medium" style="background: var(--color-tertiary); color: var(--color-tertiary-ink);">En vivo</div>
+                  </div>
+                </div>
+
+                <!-- KPI cards -->
+                <div class="grid grid-cols-3 gap-2 mb-4">
+                  {[
+                    { label: 'Ingresos', value: '$284K', delta: '+12%', color: 'var(--color-primary-600)' },
+                    { label: 'Órdenes', value: '1,432', delta: '+8%', color: 'var(--color-secondary-600)' },
+                    { label: 'Eficiencia', value: '94.2%', delta: '+3%', color: 'var(--color-tertiary-ink)' },
+                  ].map((kpi) => (
+                    <div class="rounded-xl p-3" style="background: white; box-shadow: var(--shadow-sm);">
+                      <div class="text-xs mb-1" style="color: var(--color-ink-soft);">{kpi.label}</div>
+                      <div class="text-sm font-semibold" style={`color: ${kpi.color}; font-family: var(--font-display);`}>{kpi.value}</div>
+                      <div class="text-xs mt-0.5" style="color: #16a34a;">{kpi.delta}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <!-- Chart area -->
+                <div class="rounded-xl p-3 mb-3" style="background: white; box-shadow: var(--shadow-sm);">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="text-xs font-medium" style="color: var(--color-secondary-900);">Ventas mensuales</div>
+                    <div class="text-xs" style="color: var(--color-ink-soft);">Últimos 6 meses</div>
+                  </div>
+                  <!-- SVG mini chart -->
+                  <svg viewBox="0 0 260 60" class="w-full" aria-hidden="true" style="overflow: visible;">
+                    <defs>
+                      <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="var(--color-primary-600)" stop-opacity="0.15"/>
+                        <stop offset="100%" stop-color="var(--color-primary-600)" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <!-- Grid lines -->
+                    {[10, 25, 40, 55].map((y) => (
+                      <line x1="0" y1={y} x2="260" y2={y} stroke="var(--color-neutral-200)" stroke-width="1"/>
+                    ))}
+                    <!-- Area fill -->
+                    <path
+                      d="M0 48 C20 40, 40 35, 60 30 C80 25, 100 38, 120 28 C140 18, 160 22, 180 15 C200 8, 220 12, 260 5 L260 60 L0 60Z"
+                      fill="url(#chart-grad)"
+                    />
+                    <!-- Line -->
+                    <path
+                      d="M0 48 C20 40, 40 35, 60 30 C80 25, 100 38, 120 28 C140 18, 160 22, 180 15 C200 8, 220 12, 260 5"
+                      fill="none"
+                      stroke="var(--color-primary-600)"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <!-- Dots -->
+                    {[[0,48],[60,30],[120,28],[180,15],[260,5]].map(([x,y]) => (
+                      <circle cx={x} cy={y} r="3" fill="var(--color-primary-600)"/>
+                    ))}
+                  </svg>
+                </div>
+
+                <!-- Table rows -->
+                <div class="rounded-xl overflow-hidden" style="background: white; box-shadow: var(--shadow-sm);">
+                  <div class="px-3 py-2 flex gap-4 text-xs font-medium border-b" style="color: var(--color-ink-soft); border-color: var(--color-neutral-200);">
+                    <span class="flex-1">Cliente</span>
+                    <span>Monto</span>
+                    <span>Estado</span>
+                  </div>
+                  {[
+                    { client: 'Acme Corp', amount: '$12,400', status: 'Pagado', color: 'var(--color-tertiary-ink)', bg: 'var(--color-tertiary)' },
+                    { client: 'Nova Retail', amount: '$8,750', status: 'Pendiente', color: '#92400e', bg: '#fef3c7' },
+                    { client: 'Sigma Tech', amount: '$21,000', status: 'Pagado', color: 'var(--color-tertiary-ink)', bg: 'var(--color-tertiary)' },
+                  ].map((row) => (
+                    <div class="px-3 py-2 flex gap-4 items-center text-xs border-b last:border-0" style="border-color: var(--color-neutral-200);">
+                      <span class="flex-1 font-medium" style="color: var(--color-secondary-900);">{row.client}</span>
+                      <span style="color: var(--color-secondary-600);">{row.amount}</span>
+                      <span class="px-1.5 py-0.5 rounded-full text-xs font-medium" style={`background: ${row.bg}; color: ${row.color};`}>{row.status}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating badge -->
+          <div
+            id="hero-badge"
+            class="absolute -bottom-4 -right-4 rounded-2xl px-4 py-3 flex items-center gap-3"
+            style="
+              background: var(--color-secondary-900);
+              box-shadow: var(--shadow-md);
+              opacity: 0;
+              transform: scale(0.85);
+            "
+          >
+            <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style="background: var(--color-tertiary);">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 7l3.5 3.5L12 3" stroke="var(--color-tertiary-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs font-medium text-white">Deploy exitoso</div>
+              <div class="text-xs" style="color: var(--color-secondary-300);">Producción · hace 2 min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" id="scroll-indicator" aria-hidden="true">
+    <div class="text-xs label-uppercase" style="color: var(--color-primary-300);">Explorar</div>
+    <div class="w-px h-10 animate-pulse" style="background: linear-gradient(to bottom, var(--color-primary-300), transparent);"></div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  const mm = gsap.matchMedia();
+
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    tl
+      .to('#hero-eyebrow', { opacity: 1, y: 0, duration: 0.6 }, 0.2)
+      .to('#hero-headline', { opacity: 1, duration: 0.8 }, 0.4)
+      .to('#hero-body', { opacity: 1, y: 0, duration: 0.6 }, 0.65)
+      .to('#hero-ctas', { opacity: 1, y: 0, duration: 0.6 }, 0.8)
+      .to('#hero-metrics', { opacity: 1, y: 0, duration: 0.6 }, 0.95)
+      .to('#hero-mockup', { opacity: 1, y: 0, rotation: 0, duration: 0.9 }, 0.5)
+      .to('#hero-badge', { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, 1.2);
+  });
+
+  // Fallback: show everything if reduced motion
+  mm.add('(prefers-reduced-motion: reduce)', () => {
+    gsap.set(['#hero-eyebrow','#hero-headline','#hero-body','#hero-ctas','#hero-metrics','#hero-mockup','#hero-badge'], {
+      opacity: 1, y: 0, rotation: 0, scale: 1
+    });
+  });
+</script>
+
+<style>
+  #hero-mockup { position: relative; }
+</style>

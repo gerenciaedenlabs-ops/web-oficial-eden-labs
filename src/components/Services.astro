@@ -1,0 +1,87 @@
+---
+const services = [
+  {
+    icon: `<path d="M3 3h8v8H3zM13 3h4v4h-4zM13 11h4v4h-4zM3 15h8v4H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>`,
+    title: 'Software a medida',
+    description: 'Tu operación tiene reglas propias. Construimos el sistema que las entiende —desde el módulo central hasta las integraciones con tus herramientas actuales.',
+    outcomes: ['Flujos sin trabajo manual innecesario', 'Integraciones nativas con tu stack', 'Escalable desde el día uno'],
+    delay: 1,
+  },
+  {
+    icon: `<rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    title: 'Plataformas SaaS',
+    description: 'De la idea al producto. Diseñamos la arquitectura para que tu plataforma soporte crecimiento desde los primeros usuarios hasta los primeros mil.',
+    outcomes: ['Arquitectura multi-tenant', 'Autenticación, billing y onboarding', 'CI/CD desde el inicio'],
+    delay: 2,
+  },
+  {
+    icon: `<path d="M4 6h16M4 12h10M4 18h13M18 14l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
+    title: 'ERP e integraciones',
+    description: 'Conectamos tus sistemas para que no exista información duplicada ni proceso manual innecesario entre ventas, logística, finanzas y producción.',
+    outcomes: ['Un solo origen de verdad', 'APIs REST y webhooks robustos', 'Migración sin interrumpir operaciones'],
+    delay: 3,
+  },
+  {
+    icon: `<path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M12 22V12M2 7l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`,
+    title: 'Modernización de sistemas',
+    description: 'Tu sistema legacy funciona, pero limita. Lo modernizamos gradualmente, sin detener tu operación y sin tirarlo todo por la borda.',
+    outcomes: ['Refactor incremental con cobertura de tests', 'Documentación viva del sistema', 'Infraestructura cloud-ready'],
+    delay: 4,
+  },
+];
+---
+
+<section id="servicios" class="py-24 md:py-32" style="background: var(--color-surface);">
+  <div class="section-container">
+
+    <!-- Header -->
+    <div class="max-w-2xl mb-16 reveal">
+      <div class="label-uppercase mb-4" style="color: var(--color-primary-600);">Servicios</div>
+      <h2 class="text-4xl md:text-5xl mb-5" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+        Lo que construimos para ti
+      </h2>
+      <p class="text-lg" style="color: var(--color-ink-soft);">
+        No somos una fábrica de código. Somos un equipo que entiende tu operación antes de escribir la primera línea.
+      </p>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+      {services.map((service) => (
+        <article
+          class={`reveal reveal-delay-${service.delay} group rounded-2xl p-8 border transition-all duration-300 cursor-default`}
+          style="
+            background: var(--color-bg);
+            border-color: var(--color-neutral-200);
+            box-shadow: var(--shadow-sm);
+          "
+        >
+          <!-- Icon -->
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors duration-300"
+               style="background: var(--color-primary-50); color: var(--color-primary-600);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={service.icon} />
+          </div>
+
+          <h3 class="text-2xl mb-3" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+            {service.title}
+          </h3>
+
+          <p class="text-base mb-6" style="color: var(--color-ink-soft); line-height: 1.65;">
+            {service.description}
+          </p>
+
+          <ul class="space-y-2" role="list">
+            {service.outcomes.map((item) => (
+              <li class="flex items-start gap-2 text-sm" style="color: var(--color-secondary-600);">
+                <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M2 7l3 3 7-6" stroke="var(--color-primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

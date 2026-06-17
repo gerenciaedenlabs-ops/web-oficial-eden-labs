@@ -1,0 +1,72 @@
+---
+const testimonials = [
+  {
+    quote: 'Eden Labs no solo construyó el sistema —entendieron por qué los procesos eran como eran y propusieron mejoras que nosotros no habíamos visto. El ERP lleva dos años en producción y no hemos tenido un solo incidente crítico.',
+    author: 'Carlos Mendez',
+    role: 'Director de Operaciones',
+    company: 'Grupo Automotriz del Norte',
+    initials: 'CM',
+    accent: 'var(--color-primary-600)',
+  },
+  {
+    quote: 'Venía de haber trabajado con tres agencias distintas que me entregaron demos hermosos y código que no sobrevivió a 500 usuarios. Eden Labs fue diferente desde la primera llamada: preguntas difíciles, expectativas claras, entrega real.',
+    author: 'Sofía Reyes',
+    role: 'CEO y Co-Fundadora',
+    company: 'FieldPro SaaS',
+    initials: 'SR',
+    accent: 'var(--color-tertiary-ink)',
+  },
+  {
+    quote: 'Llevábamos 15 años con el mismo sistema legacy. Nadie quería tocarlo. Eden Labs lo migró en fases sin detener operaciones y hoy tenemos un sistema que nuestro equipo puede mantener sin depender de una sola persona.',
+    author: 'Miguel Torres',
+    role: 'CTO',
+    company: 'Seguros Meridian',
+    initials: 'MT',
+    accent: '#7c3aed',
+  },
+];
+---
+
+<section class="py-24 md:py-32" style="background: var(--color-surface);">
+  <div class="section-container">
+
+    <!-- Header -->
+    <div class="max-w-xl mb-16 reveal">
+      <div class="label-uppercase mb-4" style="color: var(--color-primary-600);">Testimonios</div>
+      <h2 class="text-4xl md:text-5xl" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+        Lo que dicen quienes trabajan con nosotros
+      </h2>
+    </div>
+
+    <!-- Testimonial cards -->
+    <div class="grid md:grid-cols-3 gap-6">
+      {testimonials.map((t, i) => (
+        <figure
+          class={`reveal reveal-delay-${i + 1} rounded-2xl p-8 flex flex-col`}
+          style="background: var(--color-bg); border: 1px solid var(--color-neutral-200);"
+        >
+          <!-- Quote mark -->
+          <div class="text-6xl leading-none mb-4" style={`font-family: var(--font-display); color: ${t.accent}; opacity: 0.3;`} aria-hidden="true">"</div>
+
+          <blockquote class="flex-1 text-base mb-8" style="color: var(--color-secondary-700); line-height: 1.7; font-family: var(--font-display); font-size: 1.05rem;">
+            {t.quote}
+          </blockquote>
+
+          <figcaption class="flex items-center gap-3 pt-6 border-t" style="border-color: var(--color-neutral-200);">
+            <div
+              class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white flex-shrink-0"
+              style={`background: ${t.accent};`}
+              aria-hidden="true"
+            >
+              {t.initials}
+            </div>
+            <div>
+              <div class="text-sm font-semibold" style="color: var(--color-secondary-900);">{t.author}</div>
+              <div class="text-xs" style="color: var(--color-ink-soft);">{t.role} · {t.company}</div>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

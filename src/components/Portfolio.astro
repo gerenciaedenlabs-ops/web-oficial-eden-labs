@@ -1,0 +1,111 @@
+---
+const projects = [
+  {
+    category: 'ERP',
+    title: 'Sistema de gestión para distribuidor automotriz',
+    problem: 'Procesos de ventas, inventario y facturación en tres sistemas distintos sin comunicación entre sí.',
+    solution: 'ERP unificado en .NET con módulos de ventas, almacén, CRM y contabilidad integrada.',
+    impact: '40% menos tiempo en cierre de mes · 0 conciliaciones manuales · 200+ usuarios activos',
+    tags: ['.NET', 'SQL Server', 'Azure'],
+    accent: 'var(--color-primary-600)',
+    accentBg: 'var(--color-primary-50)',
+  },
+  {
+    category: 'SaaS',
+    title: 'Plataforma de gestión de servicios field operations',
+    problem: 'Coordinación de técnicos en campo via WhatsApp, sin trazabilidad ni SLA real.',
+    solution: 'Plataforma web + app móvil para despacho, seguimiento GPS, reportes y firma digital.',
+    impact: '35% mejora en tiempo de respuesta · SLA visible en tiempo real · 3 países operando',
+    tags: ['React', 'Node.js', 'React Native', 'AWS'],
+    accent: 'var(--color-tertiary-ink)',
+    accentBg: 'var(--color-tertiary)',
+  },
+  {
+    category: 'Integración',
+    title: 'Hub de integración para cadena retail',
+    problem: 'Más de 8 sistemas desconectados: e-commerce, POS, logística, ERP y BI.',
+    solution: 'Capa de integración centralizada con APIs, transformación de datos y dashboard de monitoreo.',
+    impact: 'Sincronización en < 2 min · 99.9% uptime · $180K ahorrados en procesos manuales/año',
+    tags: ['Node.js', 'PostgreSQL', 'Docker', 'AWS'],
+    accent: '#7c3aed',
+    accentBg: '#f3e8ff',
+  },
+  {
+    category: 'Modernización',
+    title: 'Migración de sistema legacy de seguros',
+    problem: 'Sistema VB6 de 15 años sin soporte, frenando el crecimiento y con riesgo de compliance.',
+    solution: 'Re-ingeniería incremental a .NET moderno con API-first y módulos reemplazados en fases.',
+    impact: 'Migración sin downtime · Tiempo de cálculo de pólizas: de 8s a 0.3s · Equipo ya no depende de un solo dev',
+    tags: ['.NET', 'SQL Server', 'Vue.js'],
+    accent: '#b45309',
+    accentBg: '#fef3c7',
+  },
+];
+---
+
+<section id="proyectos" class="py-24 md:py-32" style="background: var(--color-bg);">
+  <div class="section-container">
+
+    <!-- Header -->
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-16 reveal">
+      <div class="max-w-xl">
+        <div class="label-uppercase mb-4" style="color: var(--color-primary-600);">Casos de éxito</div>
+        <h2 class="text-4xl md:text-5xl" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+          Problemas reales, resultados medibles
+        </h2>
+      </div>
+      <p class="text-base max-w-sm" style="color: var(--color-ink-soft);">
+        Cada proyecto tiene un problema de negocio detrás. Aquí mostramos el problema, la solución y lo que se midió al final.
+      </p>
+    </div>
+
+    <!-- Projects grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+      {projects.map((project, i) => (
+        <article
+          class={`reveal reveal-delay-${(i % 2) + 1} rounded-2xl overflow-hidden border transition-all duration-300`}
+          style="background: var(--color-surface); border-color: var(--color-neutral-200); box-shadow: var(--shadow-sm);"
+        >
+          <!-- Top accent bar + category -->
+          <div class="h-1.5 w-full" style={`background: ${project.accent};`}></div>
+
+          <div class="p-8">
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium mb-5" style={`background: ${project.accentBg}; color: ${project.accent};`}>
+              {project.category}
+            </div>
+
+            <h3 class="text-2xl mb-6" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+              {project.title}
+            </h3>
+
+            <div class="space-y-4 mb-6">
+              <div>
+                <div class="label-uppercase mb-1" style="color: var(--color-ink-soft);">Problema</div>
+                <p class="text-sm" style="color: var(--color-secondary-600);">{project.problem}</p>
+              </div>
+              <div>
+                <div class="label-uppercase mb-1" style="color: var(--color-ink-soft);">Solución</div>
+                <p class="text-sm" style="color: var(--color-secondary-600);">{project.solution}</p>
+              </div>
+            </div>
+
+            <!-- Impact -->
+            <div class="rounded-xl p-4 mb-6" style={`background: ${project.accentBg};`}>
+              <div class="label-uppercase mb-2" style={`color: ${project.accent};`}>Impacto</div>
+              <p class="text-sm font-medium" style={`color: ${project.accent};`}>{project.impact}</p>
+            </div>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span class="px-2.5 py-1 rounded-lg text-xs font-medium" style="background: var(--color-bg); color: var(--color-secondary-500); border: 1px solid var(--color-neutral-200);">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
