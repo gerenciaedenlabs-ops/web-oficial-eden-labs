@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "./tokens.css";
-@import "@fontsource-variable/eb-garamond";
+@import "@fontsource/michroma";
 @import "@fontsource-variable/geist";
 
 /* ─── Base ─── */

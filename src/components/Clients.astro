@@ -1,0 +1,129 @@
+---
+// Empresas para las que hemos trabajado (carrusel infinito de "chips").
+// Para añadir más: coloca el logo en `public/clients/` y agrega una entrada.
+const clients: { name: string; domain: string; logo: string; url: string }[] = [
+  { name: 'SOS Para Tu Vida', domain: 'sosparatuvida.com.co', logo: '/clients/sos.jpg', url: 'https://sosparatuvida.com.co/' },
+  { name: 'Piercing Jewelry Fashion', domain: 'jewelryfashionoficial.com', logo: '/clients/piercing.png', url: 'https://jewelryfashionoficial.com/' },
+];
+
+// Repetimos los chips para llenar el ancho y que el bucle sea continuo.
+const REPEAT = 5;
+const group = Array.from({ length: REPEAT }, () => clients).flat();
+---
+
+<section class="py-16 md:py-24 overflow-hidden" style="background: var(--color-bg); border-bottom: 1px solid var(--color-neutral-200);">
+  <div class="section-container">
+    <div class="flex flex-col items-center text-center mb-12 md:mb-14 reveal">
+      <span class="label-uppercase mb-3" style="color: var(--color-primary-600);">Confían en nosotros</span>
+      <h2 class="text-2xl md:text-3xl" style="font-family: var(--font-display); color: var(--color-secondary-900); letter-spacing: -0.02em;">
+        Empresas para las que hemos trabajado
+      </h2>
+    </div>
+  </div>
+
+  <div class="marquee" aria-label="Empresas para las que hemos trabajado">
+    <div class="marquee-track">
+      {[0, 1].map((copy) => (
+        <div class="marquee-group" aria-hidden={copy === 1 ? 'true' : undefined}>
+          {group.map((c) => (
+            <a class="client-chip" href={c.url} target="_blank" rel="noopener noreferrer" aria-label={c.name}>
+              <span class="chip-avatar">
+                <img src={c.logo} alt={c.name} loading="lazy" />
+              </span>
+              <span class="chip-meta">
+                <span class="chip-name">{c.name}</span>
+                <span class="chip-domain">{c.domain}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-right 45s linear infinite;
+  }
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Chip = avatar del logo + nombre + dominio */
+  .client-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    flex-shrink: 0;
+    padding: 0.75rem 1.25rem 0.75rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-neutral-200);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .client-chip:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary-300);
+  }
+
+  .chip-avatar {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--color-neutral-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chip-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .chip-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .chip-name {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-secondary-900);
+  }
+  .chip-domain {
+    font-size: 0.8rem;
+    color: var(--color-secondary-400);
+    margin-top: 2px;
+  }
+
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+
+  @keyframes marquee-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+</style>

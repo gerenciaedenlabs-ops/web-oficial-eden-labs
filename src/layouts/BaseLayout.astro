@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import '../styles/globals.css';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const {
-  title = 'Eden Labs — Software a medida para empresas que exigen más',
+  title = 'Edén Labs — Software a medida para empresas que exigen más',
   description = 'Diseñamos y construimos software a medida, ERPs, plataformas SaaS e integraciones para empresas en EE. UU. y Latinoamérica.',
   image = '/og-image.png',
 } = Astro.props;
@@ -22,7 +23,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon-512.png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title="Edén Labs — Blog & Insights" href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
@@ -47,11 +51,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Eden Labs",
+        "name": "Edén Labs",
         "url": "https://edenlabs.dev",
         "description": "Empresa de desarrollo de software a medida, ERPs y plataformas SaaS.",
-        "areaServed": ["US", "MX", "CO", "AR", "CL", "PE"],
-        "serviceType": ["Software Development", "ERP", "SaaS", "System Integration"]
+        "email": "gerenciaedenlabs@gmail.com",
+        "telephone": "+573145486712",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Envigado",
+          "addressRegion": "Antioquia",
+          "addressCountry": "CO"
+        },
+        "areaServed": ["CO", "US", "MX", "AR", "CL", "PE"],
+        "serviceType": ["Software Development", "ERP", "SaaS", "System Integration"],
+        "sameAs": [
+          "https://www.instagram.com/somosedenlabs",
+          "https://www.tiktok.com/@somosedenlabs",
+          "https://www.linkedin.com/in/somosedenlabs",
+          "https://www.facebook.com/share/18v6Xv7NhV/"
+        ]
       }
     </script>
 
@@ -60,20 +78,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <body>
     <slot />
 
-    <!-- Scroll reveal observer -->
+    <FloatingWhatsApp />
+
+    <!-- Scroll reveal observer (se re-inicia en cada navegación) -->
     <script>
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-      );
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      function initReveal() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        );
+        document.querySelectorAll('.reveal:not(.is-visible)').forEach((el) => observer.observe(el));
+      }
+      document.addEventListener('astro:page-load', initReveal);
     </script>
   </body>
 </html>
