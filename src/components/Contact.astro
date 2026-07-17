@@ -1,4 +1,23 @@
 ---
+import { SITE } from '../config';
+
+const contactItems = [
+  {
+    icon: `<path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    text: SITE.email,
+    href: `mailto:${SITE.email}`,
+  },
+  {
+    icon: `<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    text: SITE.phoneDisplay,
+    href: `tel:${SITE.phoneHref}`,
+  },
+  {
+    icon: `<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="currentColor" stroke-width="1.5"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="1.5"/>`,
+    text: SITE.location,
+    href: null,
+  },
+];
 ---
 
 <section id="contacto" class="py-24 md:py-32" style="background: var(--color-primary-900);">
@@ -16,16 +35,16 @@
         </p>
 
         <ul class="space-y-4" role="list">
-          {[
-            { icon: `<path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`, text: 'hola@edenlabs.dev' },
-            { icon: `<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="currentColor" stroke-width="1.5"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="1.5"/>`, text: 'Ciudad de México · Houston, TX' },
-            { icon: `<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`, text: 'Respuesta en < 24 hrs hábiles' },
-          ].map((item) => (
+          {contactItems.map((item) => (
             <li class="flex items-center gap-3">
               <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(255,255,255,0.08);">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={item.icon}/>
               </div>
-              <span class="text-base" style="color: var(--color-primary-200);">{item.text}</span>
+              {item.href ? (
+                <a href={item.href} class="text-base transition-colors duration-150 hover:text-white" style="color: var(--color-primary-200);">{item.text}</a>
+              ) : (
+                <span class="text-base" style="color: var(--color-primary-200);">{item.text}</span>
+              )}
             </li>
           ))}
         </ul>
@@ -100,6 +119,26 @@
           </div>
 
           <div class="mb-5">
+            <label for="phone" class="block text-sm font-medium mb-2" style="color: var(--color-secondary-700);">
+              Teléfono / WhatsApp
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="+57 300 000 0000"
+              class="w-full px-4 py-3 rounded-xl text-base transition-all duration-150 outline-none"
+              style="
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-neutral-300);
+                color: var(--color-secondary-900);
+              "
+            />
+          </div>
+
+          <div class="mb-5">
             <label for="type" class="block text-sm font-medium mb-2" style="color: var(--color-secondary-700);">
               Tipo de proyecto
             </label>
@@ -141,6 +180,12 @@
             ></textarea>
           </div>
 
+          <!-- Honeypot anti-spam (oculto para humanos, visible para bots) -->
+          <div aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px;" tabindex="-1">
+            <label for="website">No rellenar</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
           <button
             type="submit"
             class="w-full py-4 rounded-xl text-base font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.99]"
@@ -162,15 +207,17 @@
 </section>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const status = document.getElementById('form-status')!;
+  function initContactForm() {
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+  if (!form || !status) return;
   const inputs = form.querySelectorAll('input, textarea, select');
 
   // Focus ring using brand color
   inputs.forEach((el) => {
     el.addEventListener('focus', () => {
       (el as HTMLElement).style.borderColor = 'var(--color-primary-600)';
-      (el as HTMLElement).style.boxShadow = '0 0 0 3px rgba(26,60,52,0.12)';
+      (el as HTMLElement).style.boxShadow = '0 0 0 3px rgba(6,78,54,0.12)';
     });
     el.addEventListener('blur', () => {
       (el as HTMLElement).style.borderColor = 'var(--color-neutral-300)';
@@ -178,20 +225,66 @@
     });
   });
 
+  const showStatus = (msg: string, ok: boolean) => {
+    status.textContent = msg;
+    status.style.color = ok ? 'var(--color-tertiary-ink)' : 'var(--color-danger)';
+    status.classList.remove('hidden');
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalLabel = btn.textContent;
+
+    // Validación nativa del navegador antes de enviar.
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     btn.disabled = true;
     btn.textContent = 'Enviando…';
+    status.classList.add('hidden');
 
-    // Simulate send (replace with real endpoint)
-    await new Promise((r) => setTimeout(r, 1200));
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+      });
 
-    status.textContent = '¡Mensaje enviado! Te contactaremos dentro de un día hábil.';
-    status.style.color = 'var(--color-tertiary-ink)';
-    status.classList.remove('hidden');
-    form.reset();
-    btn.textContent = 'Mensaje enviado ✓';
-    btn.style.background = 'var(--color-tertiary-ink)';
+      const result = await res.json().catch(() => ({}));
+
+      if (res.ok && result.ok) {
+        showStatus('¡Mensaje enviado! Te contactaremos dentro de un día hábil.', true);
+        form.reset();
+        btn.textContent = 'Mensaje enviado ✓';
+        btn.style.background = 'var(--color-tertiary-ink)';
+        return;
+      }
+
+      const firstFieldError =
+        result.errors && Object.values(result.errors)[0];
+      showStatus(
+        (firstFieldError as string) ||
+          result.error ||
+          'No pudimos enviar tu mensaje. Intenta de nuevo.',
+        false
+      );
+    } catch {
+      showStatus(
+        'Hubo un problema de conexión. Intenta de nuevo o escríbenos directamente.',
+        false
+      );
+    } finally {
+      if (btn.textContent === 'Enviando…') btn.textContent = originalLabel;
+      btn.disabled = false;
+    }
   });
+  }
+
+  document.addEventListener('astro:page-load', initContactForm);
 </script>

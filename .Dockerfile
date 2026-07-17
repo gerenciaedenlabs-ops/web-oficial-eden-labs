@@ -6,32 +6,33 @@ WORKDIR /app
 # Copiamos archivos de dependencias
 COPY package*.json ./
 
-# Instalamos dependencias
-RUN npm install
+# Instalamos TODAS las dependencias (incluye devDeps para el build)
+RUN npm ci
 
 # Copiamos el resto del código
 COPY . .
 
-# Construimos la aplicación para producción
+# Construimos la aplicación (SSR con el adaptador @astrojs/node)
 RUN npm run build
 
-# Etapa 2: Servidor de Producción (Nginx)
-FROM nginx:stable-alpine
+# Etapa 2: Servidor de Producción (Node)
+FROM node:22-alpine AS runtime
 
-# Copiamos el build desde la etapa anterior a la carpeta de Nginx
-# Vite por defecto exporta a 'dist'
-COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-# Configuración básica para que React Router funcione (evita el error 404 al recargar)
-RUN echo 'server { \
-    listen 80; \
-    location / { \
-    root /usr/share/nginx/html; \
-    index index.html index.htm; \
-    try_files $uri $uri/ /index.html; \
-    } \
-    }' > /etc/nginx/conf.d/default.conf
+ENV NODE_ENV=production
+# Escuchar en todas las interfaces dentro del contenedor
+ENV HOST=0.0.0.0
+ENV PORT=4321
 
-EXPOSE 80
+# Solo dependencias de producción
+COPY package*.json ./
+RUN npm ci --omit=dev
 
-CMD ["nginx", "-g", "daemon off;"]
+# Copiamos el build (servidor + cliente) desde la etapa anterior
+COPY --from=build /app/dist ./dist
+
+EXPOSE 4321
+
+# El adaptador Node en modo standalone genera este entrypoint
+CMD ["node", "./dist/server/entry.mjs"]

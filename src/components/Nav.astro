@@ -1,42 +1,33 @@
 ---
-import Button from './Button.astro';
+import { CRM_URL } from '../config';
+
+const lockIcon = 'M5 8V6a3 3 0 016 0v2m-7 0h8a1 1 0 011 1v5a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z';
+
+const navItems = [
+  { label: 'Servicios', href: '/#servicios' },
+  { label: 'Proyectos', href: '/#proyectos' },
+  { label: 'Nosotros', href: '/#nosotros' },
+  { label: 'Blog', href: '/blog/' },
+];
 ---
 
 <header
   id="site-header"
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-  style="background: transparent;"
 >
   <div class="section-container">
     <nav class="flex items-center justify-between h-16 md:h-20" aria-label="Navegación principal">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 group focus-visible:outline-none">
-        <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-200 group-hover:scale-105"
-             style="background: var(--color-primary-600);">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M9 2L15 6V12L9 16L3 12V6L9 2Z" fill="none" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M9 6L12 8V12L9 14L6 12V8L9 6Z" fill="white"/>
-          </svg>
-        </div>
-        <span class="text-xl font-semibold tracking-tight" style="font-family: var(--font-display); color: var(--color-secondary-900);">
-          Eden Labs
-        </span>
+      <a href="/" class="flex items-center focus-visible:outline-none" aria-label="Edén Labs — inicio">
+        <img src="/logo-eden-white.png" alt="Edén Labs" class="logo-img logo-white h-7 md:h-8 w-auto" width="210" height="80" />
+        <img src="/logo-eden.png" alt="Edén Labs" class="logo-img logo-color h-7 md:h-8 w-auto" width="210" height="80" />
       </a>
 
       <!-- Desktop navigation -->
       <ul class="hidden md:flex items-center gap-8 list-none" role="list">
-        {[
-          { label: 'Servicios', href: '#servicios' },
-          { label: 'Proceso', href: '#proceso' },
-          { label: 'Proyectos', href: '#proyectos' },
-          { label: 'Nosotros', href: '#nosotros' },
-        ].map((item) => (
+        {navItems.map((item) => (
           <li>
-            <a
-              href={item.href}
-              class="text-sm font-medium transition-colors duration-150 hover:text-[var(--color-primary-600)]"
-              style="color: var(--color-secondary-600);"
-            >
+            <a href={item.href} class="nav-link text-sm font-medium transition-colors duration-150">
               {item.label}
             </a>
           </li>
@@ -45,15 +36,27 @@ import Button from './Button.astro';
 
       <!-- CTA + Mobile toggle -->
       <div class="flex items-center gap-3">
-        <Button href="#contacto" variant="primary" size="sm" class="hidden md:inline-flex">
-          Hablemos
-        </Button>
+        <a
+          href={CRM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-access hidden md:inline-flex items-center gap-1.5 text-sm font-medium transition-colors duration-150"
+        >
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d={lockIcon} stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Acceso
+        </a>
 
-        <!-- Mobile menu button (island) -->
+        <a href="/#contacto" class="nav-cta hidden md:inline-flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-sm font-semibold transition-all duration-200">
+          Hablemos
+        </a>
+
+        <!-- Mobile menu button -->
         <button
           id="mobile-menu-btn"
           class="md:hidden w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-150"
-          style="background: var(--color-neutral-200);"
+          style="background: rgba(255,255,255,0.15); color: white;"
           aria-label="Abrir menú"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -76,12 +79,7 @@ import Button from './Button.astro';
     style="background: var(--color-surface); border-top: 1px solid var(--color-neutral-200);"
   >
     <div class="section-container py-6 flex flex-col gap-4">
-      {[
-        { label: 'Servicios', href: '#servicios' },
-        { label: 'Proceso', href: '#proceso' },
-        { label: 'Proyectos', href: '#proyectos' },
-        { label: 'Nosotros', href: '#nosotros' },
-      ].map((item) => (
+      {navItems.map((item) => (
         <a
           href={item.href}
           class="text-base font-medium py-2 mobile-menu-link"
@@ -90,47 +88,99 @@ import Button from './Button.astro';
           {item.label}
         </a>
       ))}
-      <Button href="#contacto" variant="primary" class="mt-2 w-full">Hablemos de tu proyecto</Button>
+      <a href="/#contacto" class="mt-2 w-full inline-flex items-center justify-center gap-2 py-3 rounded-[10px] text-base font-semibold transition-all duration-200"
+         style="background: var(--color-tertiary); color: var(--color-tertiary-ink);">
+        Hablemos de tu proyecto
+      </a>
+
+      <a
+        href={CRM_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 py-3 rounded-[10px] text-base font-medium border transition-colors duration-150"
+        style="color: var(--color-secondary-900); border-color: var(--color-neutral-300);"
+      >
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d={lockIcon} stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Acceso clientes
+      </a>
     </div>
   </div>
 </header>
 
+<style>
+  /* Estado superior: velo verde translúcido para que el nav blanco sea legible
+     tanto sobre el verde del hero como sobre el panel claro diagonal. */
+  #site-header {
+    background: linear-gradient(to bottom, rgba(4, 39, 36, 0.82), rgba(4, 39, 36, 0.52));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  #site-header.scrolled {
+    background: rgba(248, 250, 252, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(6, 78, 54, 0.08);
+  }
+
+  /* Logo: blanco arriba (sobre hero verde), a color al hacer scroll (fondo claro) */
+  .logo-color { display: none; }
+  #site-header.scrolled .logo-white { display: none; }
+  #site-header.scrolled .logo-color { display: block; }
+
+  /* Enlaces: claros arriba, oscuros al hacer scroll */
+  .nav-link, .nav-access { color: #ffffff; }
+  .nav-link:hover, .nav-access:hover { color: var(--color-tertiary-strong); }
+  #site-header.scrolled .nav-link,
+  #site-header.scrolled .nav-access { color: var(--color-secondary-600); }
+  #site-header.scrolled .nav-link:hover,
+  #site-header.scrolled .nav-access:hover { color: var(--color-primary-600); }
+
+  /* CTA lima de marca — funciona sobre verde y sobre claro */
+  .nav-cta { background: var(--color-tertiary); color: var(--color-tertiary-ink); }
+  .nav-cta:hover { background: var(--color-tertiary-strong); }
+
+  /* El botón hamburguesa se oscurece al hacer scroll */
+  #site-header.scrolled #mobile-menu-btn {
+    background: var(--color-neutral-200) !important;
+    color: var(--color-secondary-900) !important;
+  }
+</style>
+
 <script>
-  // Scroll behaviour: opaque on scroll
-  const header = document.getElementById('site-header')!;
-  const updateHeader = () => {
-    if (window.scrollY > 30) {
-      header.style.background = 'rgba(248,250,252,0.95)';
-      header.style.backdropFilter = 'blur(12px)';
-      header.style.boxShadow = '0 1px 0 rgba(26,60,52,0.08)';
-    } else {
-      header.style.background = 'transparent';
-      header.style.backdropFilter = '';
-      header.style.boxShadow = '';
-    }
+  // Se re-ejecuta en cada navegación (View Transitions / ClientRouter)
+  const setScrolled = () => {
+    const h = document.getElementById('site-header');
+    if (h) h.classList.toggle('scrolled', window.scrollY > 30);
   };
-  window.addEventListener('scroll', updateHeader, { passive: true });
-  updateHeader();
+  window.addEventListener('scroll', setScrolled, { passive: true });
 
-  // Mobile menu toggle
-  const btn = document.getElementById('mobile-menu-btn')!;
-  const menu = document.getElementById('mobile-menu')!;
-  const iconOpen = document.getElementById('icon-open')!;
-  const iconClose = document.getElementById('icon-close')!;
+  function initNav() {
+    setScrolled();
 
-  btn.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('hidden') === false;
-    btn.setAttribute('aria-expanded', String(isOpen));
-    iconOpen.classList.toggle('hidden', isOpen);
-    iconClose.classList.toggle('hidden', !isOpen);
-  });
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    if (!btn || !menu || !iconOpen || !iconClose) return;
 
-  document.querySelectorAll('.mobile-menu-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      btn.setAttribute('aria-expanded', 'false');
-      iconOpen.classList.remove('hidden');
-      iconClose.classList.add('hidden');
+    btn.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('hidden') === false;
+      btn.setAttribute('aria-expanded', String(isOpen));
+      iconOpen.classList.toggle('hidden', isOpen);
+      iconClose.classList.toggle('hidden', !isOpen);
     });
-  });
+
+    document.querySelectorAll('.mobile-menu-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initNav);
 </script>
