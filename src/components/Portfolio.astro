@@ -1,44 +1,27 @@
 ---
+// NOTA: borrador para revisión. Confirma/corrige alcance, tecnologías e impacto reales.
 const projects = [
   {
-    category: 'ERP',
-    title: 'Sistema de gestión para distribuidor automotriz',
-    problem: 'Procesos de ventas, inventario y facturación en tres sistemas distintos sin comunicación entre sí.',
-    solution: 'ERP unificado en .NET con módulos de ventas, almacén, CRM y contabilidad integrada.',
-    impact: '40% menos tiempo en cierre de mes · 0 conciliaciones manuales · 200+ usuarios activos',
-    tags: ['.NET', 'SQL Server', 'Azure'],
+    category: 'Sitio web',
+    title: 'Sitio web para SOS Para Tu Vida',
+    problem: 'Necesitaban una presencia digital clara para dar a conocer sus eventos, encuentros y escuelas, y facilitar que las personas los conocieran y contactaran.',
+    solution: 'Diseñamos y desarrollamos su sitio web oficial, con una estructura clara de sus programas y un diseño responsivo pensado para convertir visitantes en contactos.',
+    impact: 'Presencia digital profesional, clara y accesible desde cualquier dispositivo.',
+    tags: ['Diseño web', 'Responsivo', 'SEO'],
+    url: 'https://sosparatuvida.com.co/',
     accent: 'var(--color-primary-600)',
     accentBg: 'var(--color-primary-50)',
   },
   {
-    category: 'SaaS',
-    title: 'Plataforma de gestión de servicios field operations',
-    problem: 'Coordinación de técnicos en campo via WhatsApp, sin trazabilidad ni SLA real.',
-    solution: 'Plataforma web + app móvil para despacho, seguimiento GPS, reportes y firma digital.',
-    impact: '35% mejora en tiempo de respuesta · SLA visible en tiempo real · 3 países operando',
-    tags: ['React', 'Node.js', 'React Native', 'AWS'],
+    category: 'E-commerce',
+    title: 'Tienda online para Jewelryfashion',
+    problem: 'Querían vender su catálogo de joyería y piercings en línea con una experiencia de compra confiable y acorde a su marca.',
+    solution: 'Construimos su tienda e-commerce con catálogo de productos, carrito y proceso de compra, con una identidad visual alineada a la marca.',
+    impact: 'Canal de venta en línea propio, con catálogo gestionable y compra directa.',
+    tags: ['E-commerce', 'Catálogo', 'Checkout'],
+    url: 'https://jewelryfashionoficial.com/',
     accent: 'var(--color-tertiary-ink)',
     accentBg: 'var(--color-tertiary)',
-  },
-  {
-    category: 'Integración',
-    title: 'Hub de integración para cadena retail',
-    problem: 'Más de 8 sistemas desconectados: e-commerce, POS, logística, ERP y BI.',
-    solution: 'Capa de integración centralizada con APIs, transformación de datos y dashboard de monitoreo.',
-    impact: 'Sincronización en < 2 min · 99.9% uptime · $180K ahorrados en procesos manuales/año',
-    tags: ['Node.js', 'PostgreSQL', 'Docker', 'AWS'],
-    accent: '#7c3aed',
-    accentBg: '#f3e8ff',
-  },
-  {
-    category: 'Modernización',
-    title: 'Migración de sistema legacy de seguros',
-    problem: 'Sistema VB6 de 15 años sin soporte, frenando el crecimiento y con riesgo de compliance.',
-    solution: 'Re-ingeniería incremental a .NET moderno con API-first y módulos reemplazados en fases.',
-    impact: 'Migración sin downtime · Tiempo de cálculo de pólizas: de 8s a 0.3s · Equipo ya no depende de un solo dev',
-    tags: ['.NET', 'SQL Server', 'Vue.js'],
-    accent: '#b45309',
-    accentBg: '#fef3c7',
   },
 ];
 ---
@@ -51,11 +34,11 @@ const projects = [
       <div class="max-w-xl">
         <div class="label-uppercase mb-4" style="color: var(--color-primary-600);">Casos de éxito</div>
         <h2 class="text-4xl md:text-5xl" style="font-family: var(--font-display); color: var(--color-secondary-900);">
-          Problemas reales, resultados medibles
+          Proyectos reales, clientes reales
         </h2>
       </div>
       <p class="text-base max-w-sm" style="color: var(--color-ink-soft);">
-        Cada proyecto tiene un problema de negocio detrás. Aquí mostramos el problema, la solución y lo que se midió al final.
+        Cada proyecto parte de un problema de negocio concreto. Aquí mostramos el problema que resolvimos y la solución que construimos.
       </p>
     </div>
 
@@ -103,6 +86,21 @@ const projects = [
                 </span>
               ))}
             </div>
+
+            {project.url && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 mt-6 text-sm font-medium transition-colors duration-150"
+                style={`color: ${project.accent};`}
+              >
+                Ver sitio
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            )}
           </div>
         </article>
       ))}

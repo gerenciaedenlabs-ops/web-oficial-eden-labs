@@ -59,8 +59,8 @@ import Button from './Button.astro';
 
         <h1
           id="hero-headline"
-          class="text-5xl md:text-6xl xl:text-7xl mb-6"
-          style="font-family: var(--font-display); color: white; letter-spacing: -0.025em; opacity: 0;"
+          class="text-3xl md:text-4xl xl:text-5xl mb-6"
+          style="font-family: var(--font-display); color: white; letter-spacing: -0.03em; line-height: 1.12; opacity: 0;"
         >
           Software que<br/>
           <em class="not-italic" style="color: var(--color-tertiary);">trabaja tan bien</em><br/>
@@ -87,16 +87,16 @@ import Button from './Button.astro';
           </Button>
         </div>
 
-        <!-- Metric strip -->
-        <div id="hero-metrics" class="flex gap-8 mt-14 pt-10 border-t border-[var(--color-primary-500)]" style="opacity: 0; transform: translateY(16px);">
+        <!-- Value strip -->
+        <div id="hero-metrics" class="flex flex-wrap gap-8 mt-14 pt-10 border-t border-[var(--color-primary-500)]" style="opacity: 0; transform: translateY(16px);">
           {[
-            { value: '60+', label: 'Proyectos entregados' },
-            { value: '98%', label: 'Retención de clientes' },
-            { value: '7', label: 'Años de experiencia' },
+            { value: 'A medida', label: 'Cada solución, pensada para tu operación' },
+            { value: 'Cercano', label: 'Tratas directo con quien construye' },
+            { value: 'Escalable', label: 'Arquitectura moderna, lista para crecer' },
           ].map((m) => (
-            <div>
-              <div class="text-3xl font-semibold" style="font-family: var(--font-display); color: var(--color-tertiary);">{m.value}</div>
-              <div class="text-sm mt-1" style="color: var(--color-primary-200);">{m.label}</div>
+            <div class="max-w-[13rem]">
+              <div class="text-2xl md:text-3xl" style="font-family: var(--font-display); color: var(--color-tertiary); letter-spacing: -0.01em;">{m.value}</div>
+              <div class="text-sm mt-1.5" style="color: var(--color-primary-200); line-height: 1.4;">{m.label}</div>
             </div>
           ))}
         </div>
@@ -279,11 +279,19 @@ import Button from './Button.astro';
 <script>
   import gsap from 'gsap';
 
-  const mm = gsap.matchMedia();
+  const HERO_ELS = ['#hero-eyebrow','#hero-headline','#hero-body','#hero-ctas','#hero-metrics','#hero-mockup','#hero-badge'];
 
-  mm.add('(prefers-reduced-motion: no-preference)', () => {
+  // Se re-ejecuta en cada navegación (View Transitions), evitando que el hero
+  // quede invisible (opacity:0) al volver al inicio de forma client-side.
+  function playHero() {
+    if (!document.querySelector('#hero-headline')) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(HERO_ELS, { opacity: 1, y: 0, rotation: 0, scale: 1 });
+      return;
+    }
+
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
     tl
       .to('#hero-eyebrow', { opacity: 1, y: 0, duration: 0.6 }, 0.2)
       .to('#hero-headline', { opacity: 1, duration: 0.8 }, 0.4)
@@ -292,14 +300,9 @@ import Button from './Button.astro';
       .to('#hero-metrics', { opacity: 1, y: 0, duration: 0.6 }, 0.95)
       .to('#hero-mockup', { opacity: 1, y: 0, rotation: 0, duration: 0.9 }, 0.5)
       .to('#hero-badge', { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, 1.2);
-  });
+  }
 
-  // Fallback: show everything if reduced motion
-  mm.add('(prefers-reduced-motion: reduce)', () => {
-    gsap.set(['#hero-eyebrow','#hero-headline','#hero-body','#hero-ctas','#hero-metrics','#hero-mockup','#hero-badge'], {
-      opacity: 1, y: 0, rotation: 0, scale: 1
-    });
-  });
+  document.addEventListener('astro:page-load', playHero);
 </script>
 
 <style>

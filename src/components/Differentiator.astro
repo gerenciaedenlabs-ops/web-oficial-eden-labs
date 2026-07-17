@@ -1,9 +1,25 @@
 ---
-const stats = [
-  { value: '60+', label: 'Proyectos entregados', note: 'en 7 años' },
-  { value: '98%', label: 'Retención de clientes', note: 'año sobre año' },
-  { value: '< 3', label: 'Días para primera demo', note: 'desde el kick-off' },
-  { value: '0', label: 'Proyectos abandonados', note: 'lo que empezamos, lo terminamos' },
+const pillars = [
+  {
+    icon: `<path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    title: 'Descubrimiento primero',
+    text: 'Entendemos tu operación antes de escribir una sola línea de código.',
+  },
+  {
+    icon: `<path d="M8 12h8M8 8h8M8 16h5M4 4h16v13a2 2 0 01-2 2H9l-5 4z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    title: 'Trato directo',
+    text: 'Hablas con quien construye tu software, sin intermediarios.',
+  },
+  {
+    icon: `<path d="M7 8l-4 4 4 4M17 8l4 4-4 4M14 4l-4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    title: 'Código mantenible',
+    text: 'Entregamos sistemas que tu equipo puede operar y hacer crecer.',
+  },
+  {
+    icon: `<path d="M12 21s-7-4.35-7-10a7 7 0 0114 0c0 5.65-7 10-7 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    title: 'Partner de largo plazo',
+    text: 'Acompañamos después del lanzamiento; no desaparecemos al entregar.',
+  },
 ];
 ---
 
@@ -14,7 +30,7 @@ const stats = [
       <!-- Left: editorial text -->
       <div class="lg:col-span-6">
         <div class="reveal">
-          <div class="label-uppercase mb-6" style="color: var(--color-tertiary);">Por qué Eden Labs</div>
+          <div class="label-uppercase mb-6" style="color: var(--color-tertiary);">Por qué Edén Labs</div>
 
           <h2 class="text-4xl md:text-5xl mb-6" style="font-family: var(--font-display); color: white; letter-spacing: -0.02em;">
             El software que importa no se construye en sprint de dos semanas.
@@ -38,23 +54,23 @@ const stats = [
           <blockquote class="text-xl italic" style="font-family: var(--font-display); color: var(--color-primary-100);">
             "Nos interesa más que tu sistema crezca 3 años sin problemas, que impresionarte con un demo."
           </blockquote>
-          <div class="mt-4 label-uppercase" style="color: var(--color-primary-400);">— Equipo Eden Labs</div>
+          <div class="mt-4 label-uppercase" style="color: var(--color-primary-400);">— Equipo Edén Labs</div>
         </div>
       </div>
 
-      <!-- Right: stats grid -->
+      <!-- Right: pillars grid -->
       <div class="lg:col-span-6">
-        <div class="grid grid-cols-2 gap-4">
-          {stats.map((stat, i) => (
+        <div class="grid sm:grid-cols-2 gap-4">
+          {pillars.map((pillar, i) => (
             <div
               class={`reveal reveal-delay-${i + 1} rounded-2xl p-6`}
               style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);"
             >
-              <div class="text-5xl mb-2" style="font-family: var(--font-display); color: var(--color-tertiary); letter-spacing: -0.03em;">
-                {stat.value}
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style="background: rgba(255,255,255,0.1); color: var(--color-tertiary);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={pillar.icon} />
               </div>
-              <div class="text-base font-medium mb-1 text-white">{stat.label}</div>
-              <div class="text-sm" style="color: var(--color-primary-300);">{stat.note}</div>
+              <div class="text-lg font-semibold mb-1.5 text-white" style="font-family: var(--font-display);">{pillar.title}</div>
+              <div class="text-sm" style="color: var(--color-primary-200); line-height: 1.55;">{pillar.text}</div>
             </div>
           ))}
         </div>

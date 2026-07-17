@@ -31,16 +31,24 @@ const services = [
 ];
 ---
 
-<section id="servicios" class="py-24 md:py-32" style="background: var(--color-surface);">
-  <div class="section-container">
+<section id="servicios" class="relative py-24 md:py-32 overflow-hidden" style="background: var(--color-primary-600);">
+  <!-- Textura de rejilla sutil -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="
+    background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000, transparent 75%);
+  "></div>
+
+  <div class="section-container relative z-10">
 
     <!-- Header -->
     <div class="max-w-2xl mb-16 reveal">
-      <div class="label-uppercase mb-4" style="color: var(--color-primary-600);">Servicios</div>
-      <h2 class="text-4xl md:text-5xl mb-5" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+      <div class="label-uppercase mb-4" style="color: var(--color-tertiary);">Servicios</div>
+      <h2 class="text-4xl md:text-5xl mb-5" style="font-family: var(--font-display); color: white;">
         Lo que construimos para ti
       </h2>
-      <p class="text-lg" style="color: var(--color-ink-soft);">
+      <p class="text-lg" style="color: var(--color-primary-200);">
         No somos una fábrica de código. Somos un equipo que entiende tu operación antes de escribir la primera línea.
       </p>
     </div>
@@ -49,32 +57,26 @@ const services = [
     <div class="grid md:grid-cols-2 gap-6">
       {services.map((service) => (
         <article
-          class={`reveal reveal-delay-${service.delay} group rounded-2xl p-8 border transition-all duration-300 cursor-default`}
-          style="
-            background: var(--color-bg);
-            border-color: var(--color-neutral-200);
-            box-shadow: var(--shadow-sm);
-          "
+          class={`service-card reveal reveal-delay-${service.delay} group rounded-2xl p-8 transition-all duration-300 cursor-default`}
         >
           <!-- Icon -->
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors duration-300"
-               style="background: var(--color-primary-50); color: var(--color-primary-600);">
+          <div class="service-icon w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors duration-300">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={service.icon} />
           </div>
 
-          <h3 class="text-2xl mb-3" style="font-family: var(--font-display); color: var(--color-secondary-900);">
+          <h3 class="text-2xl mb-3" style="font-family: var(--font-display); color: white;">
             {service.title}
           </h3>
 
-          <p class="text-base mb-6" style="color: var(--color-ink-soft); line-height: 1.65;">
+          <p class="text-base mb-6" style="color: var(--color-primary-200); line-height: 1.65;">
             {service.description}
           </p>
 
           <ul class="space-y-2" role="list">
             {service.outcomes.map((item) => (
-              <li class="flex items-start gap-2 text-sm" style="color: var(--color-secondary-600);">
+              <li class="flex items-start gap-2 text-sm" style="color: var(--color-primary-100);">
                 <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M2 7l3 3 7-6" stroke="var(--color-primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2 7l3 3 7-6" stroke="var(--color-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 {item}
               </li>
@@ -85,3 +87,24 @@ const services = [
     </div>
   </div>
 </section>
+
+<style>
+  .service-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+  }
+  .service-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-tertiary);
+    transform: translateY(-4px);
+  }
+  .service-icon {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-tertiary);
+  }
+  .service-card:hover .service-icon {
+    background: var(--color-tertiary);
+    color: var(--color-primary-800);
+  }
+</style>

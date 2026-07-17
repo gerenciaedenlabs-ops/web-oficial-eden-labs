@@ -1,0 +1,152 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => import.meta.env.PROD ? !data.draft : true);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFmt = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title={`${post.data.title} — Eden Labs`}
+  description={post.data.description}
+  image={post.data.cover ?? '/og-image.png'}
+>
+  <Nav />
+  <main>
+    <!-- Article header -->
+    <header class="pt-32 pb-12 md:pt-40 md:pb-16" style="background: var(--color-primary-600);">
+      <div class="section-container">
+        <a href="/blog/" class="inline-flex items-center gap-1.5 text-sm font-medium mb-8 transition-colors hover:text-white" style="color: var(--color-primary-200);">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Volver al blog
+        </a>
+        <div class="flex flex-wrap items-center gap-3 mb-5 text-sm" style="color: var(--color-primary-200);">
+          <time datetime={post.data.pubDate.toISOString()}>{dateFmt.format(post.data.pubDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{post.data.author}</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl max-w-3xl" style="font-family: var(--font-display); color: white; letter-spacing: -0.025em; line-height: 1.1;">
+          {post.data.title}
+        </h1>
+        {post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-6">
+            {post.data.tags.map((tag) => (
+              <span class="text-xs px-2.5 py-1 rounded-full" style="background: rgba(255,255,255,0.12); color: white;">{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    </header>
+
+    <!-- Article body -->
+    <article class="py-14 md:py-20" style="background: var(--color-bg);">
+      <div class="section-container">
+        <div class="prose mx-auto">
+          <p class="lead">{post.data.description}</p>
+          <Content />
+        </div>
+
+        <!-- CTA footer -->
+        <div class="max-w-[720px] mx-auto mt-16 pt-10" style="border-top: 1px solid var(--color-neutral-200);">
+          <div class="rounded-2xl p-8 md:p-10 text-center" style="background: var(--color-secondary-900);">
+            <h2 class="text-2xl mb-3" style="font-family: var(--font-display); color: white;">¿Tienes un proyecto en mente?</h2>
+            <p class="mb-6" style="color: var(--color-secondary-300);">La primera llamada es gratis y sin compromiso.</p>
+            <a href="/#contacto" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[10px] font-medium text-white transition-all duration-200 hover:opacity-90" style="background: var(--color-primary-600);">
+              Hablemos de tu proyecto
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 720px;
+    color: var(--color-ink);
+    font-size: 1.1875rem;
+    line-height: 1.75;
+  }
+  .prose .lead {
+    font-size: 1.375rem;
+    line-height: 1.5;
+    color: var(--color-secondary-700);
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+  .prose :global(h2) {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+    color: var(--color-secondary-900);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose :global(h3) {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    color: var(--color-secondary-900);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose :global(p) { margin-bottom: 1.5rem; }
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .prose :global(ul) { list-style: disc; }
+  .prose :global(ol) { list-style: decimal; }
+  .prose :global(li) { padding-left: 0.25rem; }
+  .prose :global(a) {
+    color: var(--color-primary-600);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose :global(a:hover) { color: var(--color-primary-700); }
+  .prose :global(strong) { color: var(--color-secondary-900); font-weight: 600; }
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--color-primary-600);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2rem 0;
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    line-height: 1.4;
+    color: var(--color-secondary-900);
+    font-style: italic;
+  }
+  .prose :global(code) {
+    background: var(--color-neutral-200);
+    padding: 0.15em 0.4em;
+    border-radius: 6px;
+    font-size: 0.9em;
+  }
+  .prose :global(pre) {
+    background: var(--color-secondary-900);
+    color: white;
+    padding: 1.25rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+  .prose :global(pre code) { background: transparent; padding: 0; }
+  .prose :global(img) { border-radius: 12px; margin: 2rem 0; }
+</style>
